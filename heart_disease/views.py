@@ -31,10 +31,42 @@ class HeartDiseasePredictorView(views.APIView):
             predictor = self.get_predictor()
             prediction = predictor.predict(serializer.validated_data)
 
+            recommendations = self.generate_recommendations(
+                serializer.validated_data, prediction
+            )
+
             return response.Response(
-                {"prediction": prediction}, status=status.HTTP_200_OK
+                {"prediction": prediction, "recommendations": recommendations},
+                status=status.HTTP_200_OK,
             )
         else:
             return response.Response(
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST
             )
+
+    def generate_recommendations(self, input_data, prediction):
+        """
+        Generates recommendations based on the input data and the prediction result.
+        """
+        recommendations = []
+
+        # Blood Pressure
+        if input_data["trestbps"] > 140:  # threshold for high blood pressure
+            recommendations.append("Evaluate for hypertension management.")
+
+        # Cholesterol Levels
+        if input_data["chol"] > 240:  # threshold for high cholesterol
+            recommendations.append("Consider lipid profile management.")
+
+        # Fasting Blood Sugar
+        if input_data["fbs"] == 1:  # 1 indicates FBS > 120 mg/dl
+            recommendations.append("Assess for potential diabetes management.")
+
+        if prediction == 1:
+            recommendations.append(
+                "Discuss comprehensive cardiovascular risk reduction."
+            )
+        else:
+            recommendations.append("Advise routine health maintenance.")
+
+        return recommendations
