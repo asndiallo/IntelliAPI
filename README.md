@@ -98,7 +98,6 @@ The frontend of PricePilot is located in the `price-pilot` folder. It is a React
 
 The `package.json` file contains all the necessary dependencies for the frontend. Additionally, an `.env` file is required in the `price-pilot` folder for environment-specific configurations. There's a `price-pilot/.env.example` for reference. -->
 
-````markdown
 # IntelliAPI
 
 ## Overview
@@ -130,7 +129,6 @@ cd IntelliAPI
 pip install -r requirements.txt
 # Set up your environment variables as per .env.example
 ```
-````
 
 ### Running the Server
 
