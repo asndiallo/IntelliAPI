@@ -1,6 +1,6 @@
 [![wakatime](https://wakatime.com/badge/user/1980556e-b47a-493f-a376-42da18f2955f/project/d999cab8-ff9b-4e53-bbee-513ad7203f02.svg)](https://wakatime.com/badge/user/1980556e-b47a-493f-a376-42da18f2955f/project/d999cab8-ff9b-4e53-bbee-513ad7203f02)
 
-# PricePilot - For Educational Purposes Only
+<!-- # PricePilot - For Educational Purposes Only
 
 🚀 **PricePilot - Your Vehicle Pricing Navigator (Educational Purpose)**
 
@@ -96,4 +96,75 @@ The frontend of PricePilot is located in the `price-pilot` folder. It is a React
 - **React**: The UI is built using React, providing an interactive and dynamic user interface.
 - **Vite**: Vite is used for fast, efficient development and building of the frontend.
 
-The `package.json` file contains all the necessary dependencies for the frontend. Additionally, an `.env` file is required in the `price-pilot` folder for environment-specific configurations. There's a `price-pilot/.env.example` for reference.
+The `package.json` file contains all the necessary dependencies for the frontend. Additionally, an `.env` file is required in the `price-pilot` folder for environment-specific configurations. There's a `price-pilot/.env.example` for reference. -->
+
+````markdown
+# IntelliAPI
+
+## Overview
+
+IntelliAPI is a Django-based REST framework project designed to expose a variety of machine learning models. This project aims to offer a robust, scalable, and user-friendly API interface for interacting with diverse ML algorithms, making them accessible for a wide range of applications.
+
+## Features
+
+- Integration of multiple machine learning models.
+- Easy-to-use RESTful endpoints for model interaction.
+- Scalable architecture suitable for handling various ML algorithms.
+- Customizable model parameters for flexible usage.
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.x
+- Django (latest version)
+- Other dependencies listed in `requirements.txt`
+
+### Installation
+
+To set up the IntelliAPI project on your local machine, follow these steps:
+
+```bash
+git clone https://github.com/asndiallo/IntelliAPI.git
+cd IntelliAPI
+pip install -r requirements.txt
+# Set up your environment variables as per .env.example
+```
+````
+
+### Running the Server
+
+To run the IntelliAPI server locally:
+
+```bash
+python manage.py runserver
+```
+
+## Usage
+
+Once the server is running, you can interact with the API endpoints. 
+<!-- [Provide more specific examples or documentation links for API usage.] -->
+
+## Contributing
+
+Contributions to the IntelliAPI project are welcome. Here's how you can contribute:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes and commit them (`git commit -am 'Add some feature'`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Create a new Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+<!-- ## Acknowledgments
+
+- [Mention any collaborators, third-party libraries, or other resources you used.] -->
+
+---
+
+For more information or inquiries, please contact asn.diallo@outlook.com.
+
+<!-- [Feel free to add any other sections or details you deem necessary.] -->
