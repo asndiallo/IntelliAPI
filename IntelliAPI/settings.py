@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     # my apps
+    "api",
+    "heart_disease",
     "price_pilot",  # Add our price_pilot app to the list of installed apps
 ]
 
