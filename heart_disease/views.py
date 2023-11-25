@@ -1,3 +1,4 @@
+import json
 import os
 
 from rest_framework import response, status, views
@@ -31,8 +32,9 @@ class HeartDiseasePredictorView(views.APIView):
             predictor = self.get_predictor()
             prediction = predictor.predict(serializer.validated_data)
 
+            lang = request.query_params.get("lang", "en")
             recommendations = self.generate_recommendations(
-                serializer.validated_data, prediction
+                serializer.validated_data, prediction, lang
             )
 
             return response.Response(
@@ -44,29 +46,39 @@ class HeartDiseasePredictorView(views.APIView):
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST
             )
 
-    def generate_recommendations(self, input_data, prediction):
+    def generate_recommendations(self, input_data, prediction, lang="en"):
         """
         Generates recommendations based on the input data and the prediction result.
         """
-        recommendations = []
+        rec_messages = self.load_recommendations(lang)
+        recommendations = {}
 
         # Blood Pressure
         if input_data["trestbps"] > 140:  # threshold for high blood pressure
-            recommendations.append("Evaluate for hypertension management.")
+            recommendations["high_blood_pressure"] = rec_messages["high_blood_pressure"]
 
         # Cholesterol Levels
         if input_data["chol"] > 240:  # threshold for high cholesterol
-            recommendations.append("Consider lipid profile management.")
+            recommendations["high_cholesterol"] = rec_messages["high_cholesterol"]
 
         # Fasting Blood Sugar
         if input_data["fbs"] == 1:  # 1 indicates FBS > 120 mg/dl
-            recommendations.append("Assess for potential diabetes management.")
+            recommendations["high_fbs"] = rec_messages["high_fbs"]
 
         if prediction == 1:
-            recommendations.append(
-                "Discuss comprehensive cardiovascular risk reduction."
-            )
+            recommendations["high_risk"] = rec_messages["high_risk"]
         else:
-            recommendations.append("Advise routine health maintenance.")
+            recommendations["low_risk"] = rec_messages["low_risk"]
 
         return recommendations
+
+    def load_recommendations(self, lang="en"):
+        """
+        Loads recommendation messages from a JSON file based on the specified language.
+        """
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(
+            current_dir, f"recommendations/recommendations_{lang}.json"
+        )
+        with open(file_path, "r") as file:
+            return json.load(file)
