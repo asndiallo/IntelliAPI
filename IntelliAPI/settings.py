@@ -78,10 +78,8 @@ MIDDLEWARE = [
 BACKEND_URL = config("BACKEND_URL")
 FRONTEND_URL = config("FRONTEND_URL")
 
-CORS_ALLOWED_ORIGINS = (
-    FRONTEND_URL,
-    BACKEND_URL,
-)
+# TODO: Change this to the frontend URL once deployed
+# CORS_ALLOWED_ORIGINS = ("*", BACKEND_URL, FRONTEND_URL)
 
 ROOT_URLCONF = "IntelliAPI.urls"
 
@@ -159,4 +157,5 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CSRF_TRUSTED_ORIGINS = [FRONTEND_URL]
+# TODO: Change this to the frontend URL once deployed
+# CSRF_TRUSTED_ORIGINS = [FRONTEND_URL]
