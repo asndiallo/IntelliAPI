@@ -172,7 +172,14 @@ To ensure a consistent and isolated development environment for the IntelliAPI p
 5. **Set Up Environment Variables**
    Configure the necessary environment variables as per `.env.example`.
 
-6. **Run the Application**
+6. Initialize the database (if applicable):
+
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+
+7. **Run the Application**
    You can now run the IntelliAPI application within this isolated environment.
 
 ### Running the Server
