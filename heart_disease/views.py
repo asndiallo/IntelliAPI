@@ -40,23 +40,30 @@ class HeartDiseasePredictorView(views.APIView):
         """
         serializer = UserInputSerializer(data=request.data.get("data"))
         if serializer.is_valid():
-            predictor = self.get_predictor()
-            prediction = predictor.predict(serializer.validated_data)
-            shap_explanation = predictor.explain(serializer.validated_data)
+            try:
+                predictor = self.get_predictor()
+                prediction = predictor.predict(serializer.validated_data)
+                shap_explanation = predictor.explain(serializer.validated_data)
 
-            lang = request.query_params.get("lang", "en")
-            recommendations = self.generate_recommendations(
-                serializer.validated_data, prediction, lang
-            )
+                lang = request.query_params.get("lang", "en")
+                recommendations = self.generate_recommendations(
+                    serializer.validated_data, prediction, lang
+                )
 
-            return response.Response(
-                {
-                    "prediction": prediction,
-                    "explanation": self.format_shape_values(shap_explanation),
-                    "recommendations": recommendations,
-                },
-                status=status.HTTP_200_OK,
-            )
+                return response.Response(
+                    {
+                        "prediction": prediction,
+                        "explanation": self.format_shap_values(shap_explanation),
+                        "recommendations": recommendations,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            except Exception as e:
+                logger.error(f"Error in prediction or explanation: {e}")
+                return response.Response(
+                    {"detail": "Error processing request."},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
         else:
             return response.Response(
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST
@@ -101,7 +108,7 @@ class HeartDiseasePredictorView(views.APIView):
             return json.load(file)
 
     @staticmethod
-    def format_shape_values(shap_values):
+    def format_shap_values(shap_values):
         """
         Formats the SHAP values to be compatible with the frontend.
         """
