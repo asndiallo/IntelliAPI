@@ -1,5 +1,6 @@
 import joblib
 import pandas as pd
+import shap
 
 FEATURES = [
     "age",
@@ -36,6 +37,19 @@ class HeartDiseasePredictor:
             return self.post_process_prediction(prediction)
         except Exception as e:
             print(f"Prediction error: {str(e)}")
+            return None
+
+    def explain(self, input_data):
+        """
+        Explains the model's prediction using SHAP.
+        """
+        try:
+            preprocessed_input = self.preprocess_input(input_data, self.scaler)
+            explainer = shap.TreeExplainer(self.model)
+            shap_values = explainer.shap_values(preprocessed_input)
+            return shap_values[0]
+        except Exception as e:
+            print(f"Explanation error: {str(e)}")
             return None
 
     @staticmethod

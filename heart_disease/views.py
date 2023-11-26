@@ -31,6 +31,7 @@ class HeartDiseasePredictorView(views.APIView):
         if serializer.is_valid():
             predictor = self.get_predictor()
             prediction = predictor.predict(serializer.validated_data)
+            shap_explanation = predictor.explain(serializer.validated_data)
 
             lang = request.query_params.get("lang", "en")
             recommendations = self.generate_recommendations(
@@ -38,7 +39,11 @@ class HeartDiseasePredictorView(views.APIView):
             )
 
             return response.Response(
-                {"prediction": prediction, "recommendations": recommendations},
+                {
+                    "prediction": prediction,
+                    "explanation": self.format_shape_values(shap_explanation),
+                    "recommendations": recommendations,
+                },
                 status=status.HTTP_200_OK,
             )
         else:
@@ -72,7 +77,8 @@ class HeartDiseasePredictorView(views.APIView):
 
         return recommendations
 
-    def load_recommendations(self, lang="en"):
+    @staticmethod
+    def load_recommendations(lang="en"):
         """
         Loads recommendation messages from a JSON file based on the specified language.
         """
@@ -82,3 +88,29 @@ class HeartDiseasePredictorView(views.APIView):
         )
         with open(file_path, "r") as file:
             return json.load(file)
+
+    @staticmethod
+    def format_shape_values(shap_values):
+        """
+        Formats the SHAP values to be compatible with the frontend.
+        """
+        feature_names = [
+            "age",
+            "sex",
+            "cp",
+            "trestbps",
+            "chol",
+            "fbs",
+            "restecg",
+            "thalach",
+            "exang",
+            "oldpeak",
+            "slope",
+            "ca",
+            "thal",
+        ]
+
+        return [
+            {"name": feature_names[i], "shap_value": shap_values[i]}
+            for i in range(len(feature_names))
+        ]
