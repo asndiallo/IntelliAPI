@@ -47,6 +47,8 @@ Please follow the installation process described in the [project's documentation
   }
   ```
 
+- Optional Parameter: `lang` (can be `en` or `fr`, default is `en`)
+
 - **Success Response**:
 
   - **Code**: 200 OK
