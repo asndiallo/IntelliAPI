@@ -185,44 +185,7 @@ python manage.py runserver
 
 ## Usage
 
-Interact with the API endpoints once the server is running. For example, to predict heart disease:
-
-- Endpoint: `POST http://127.0.0.1:8000/api/v1/heart_disease/predict/`
-- Request Body:
-
-  ```json
-  {
-    "data": {
-      "age": 45,
-      "sex": 1,
-      "cp": 2,
-      "trestbps": 120,
-      "chol": 240,
-      "fbs": 1,
-      "restecg": 1,
-      "thalach": 150,
-      "exang": 0,
-      "oldpeak": 2.3,
-      "slope": 2,
-      "ca": 0,
-      "thal": 2
-    }
-  }
-  ```
-
-- Optional Parameter: `lang` (can be `en` or `fr`, default is `en`)
-
-- Example body Response:
-
-  ```json
-  {
-    "prediction": 1,
-    "recommendations": {
-      "high_fbs": "Assess for potential diabetes management.",
-      "high_risk": "Discuss comprehensive cardiovascular risk reduction."
-    }
-  }
-  ```
+Interact with the API endpoints once the server is running. For an usage example, please explore the [Heart Disease Predictor API's guidelines](heart_disease/README.md#api-endpoints)
 
   <!-- [Provide more specific examples or documentation links for API usage.] -->
 
