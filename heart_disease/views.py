@@ -109,8 +109,11 @@ class HeartDiseasePredictorView(views.APIView):
         file_path = os.path.join(
             current_dir, f"recommendations/recommendations_{lang}.json"
         )
-        with open(file_path, "r") as file:
-            return json.load(file)
+        try:
+            with open(file_path, "r") as file:
+                return json.load(file)
+        except FileNotFoundError:
+            raise
 
     @staticmethod
     def format_shap_values(shap_values):
