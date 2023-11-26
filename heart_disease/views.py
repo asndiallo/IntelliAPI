@@ -1,28 +1,38 @@
 import json
+import logging
 import os
 
-from rest_framework import response, status, views
+from rest_framework import exceptions, response, status, views
 
 from .constants import FEATURES
 from .predictor import HeartDiseasePredictor
 from .serializers import UserInputSerializer
 
+logger = logging.getLogger(__name__)
+
 
 class HeartDiseasePredictorView(views.APIView):
-    def get_predictor(self):
+    _predictor_instance = None
+
+    @classmethod
+    def get_predictor(cls):
         """
-        Lazily loads and returns the HeartDiseasePredictor instance.
+        Returns a singleton instance of the HeartDiseasePredictor.
         """
-        if not hasattr(self, "_heart_disease_predictor"):
-            current_dir = os.path.dirname(os.path.abspath(__file__))
-            model_path = os.path.join(
-                current_dir, "models/gradient_boosting_model.joblib"
-            )
-            scaler_path = os.path.join(current_dir, "models/scaler.joblib")
-            self._heart_disease_predictor = HeartDiseasePredictor(
-                model_path, scaler_path
-            )
-        return self._heart_disease_predictor
+        if cls._predictor_instance is None:
+            try:
+                current_dir = os.path.dirname(os.path.abspath(__file__))
+                model_path = os.path.join(
+                    current_dir, "models/gradient_boosting_model.joblib"
+                )
+                scaler_path = os.path.join(current_dir, "models/scaler.joblib")
+                cls._predictor_instance = HeartDiseasePredictor(model_path, scaler_path)
+            except Exception as e:
+                logger.error(f"Error loading model or scaler: {e}")
+                raise exceptions.APIException(
+                    "Internal server error: model loading failed."
+                )
+        return cls._predictor_instance
 
     def post(self, request, *args, **kwargs):
         """
