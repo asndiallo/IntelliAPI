@@ -119,17 +119,61 @@ IntelliAPI is a Django-based REST framework project designed to expose a variety
 - Django (latest version)
 - Other dependencies listed in `requirements.txt`
 
-### Installation
+#### Installation
 
-To set up the IntelliAPI project on your local machine, follow these steps:
+To ensure a consistent and isolated development environment for the IntelliAPI project, it is recommended to set up a new Python virtual environment. Follow these steps to install and configure your project:
 
-```bash
-git clone https://github.com/asndiallo/IntelliAPI.git
-cd IntelliAPI
-pip install -r requirements.txt
-```
+1. **Clone the Repository**
+   Start by cloning the IntelliAPI repository to your local machine:
 
-Set up environment variables as per `.env.example`.
+   ```bash
+   git clone https://github.com/asndiallo/IntelliAPI.git
+   cd IntelliAPI
+   ```
+
+2. **Create a New Virtual Environment**
+   It's recommended to create a virtual environment to manage dependencies specific to this project. If you're using Anaconda, create a new environment:
+
+   ```bash
+   conda create --name intelliapi_env python=3.10
+   ```
+
+   Alternatively, if you're using `venv`:
+
+   ```bash
+   python3 -m venv intelliapi_env
+   ```
+
+3. **Activate the Environment**
+   Activate the newly created environment:
+
+   - For Anaconda:
+
+     ```bash
+     conda activate intelliapi_env
+     ```
+
+   - For `venv`:
+
+     ```bash
+     source intelliapi_env/bin/activate  # On Unix or MacOS
+     intelliapi_env\Scripts\activate  # On Windows
+     ```
+
+4. **Install Dependencies**
+   Install the project dependencies within this environment:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   Note: Ensure your `requirements.txt` file is up to date with specific versions of each package to avoid compatibility issues.
+
+5. **Set Up Environment Variables**
+   Configure the necessary environment variables as per `.env.example`.
+
+6. **Run the Application**
+   You can now run the IntelliAPI application within this isolated environment.
 
 ### Running the Server
 
