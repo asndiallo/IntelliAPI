@@ -127,8 +127,9 @@ To set up the IntelliAPI project on your local machine, follow these steps:
 git clone https://github.com/asndiallo/IntelliAPI.git
 cd IntelliAPI
 pip install -r requirements.txt
-# Set up your environment variables as per .env.example
 ```
+
+Set up environment variables as per `.env.example`.
 
 ### Running the Server
 
@@ -140,8 +141,46 @@ python manage.py runserver
 
 ## Usage
 
-Once the server is running, you can interact with the API endpoints. 
-<!-- [Provide more specific examples or documentation links for API usage.] -->
+Interact with the API endpoints once the server is running. For example, to predict heart disease:
+
+- Endpoint: `POST http://127.0.0.1:8000/api/v1/heart_disease/predict/`
+- Request Body:
+
+  ```json
+  {
+    "data": {
+      "age": 45,
+      "sex": 1,
+      "cp": 2,
+      "trestbps": 120,
+      "chol": 240,
+      "fbs": 1,
+      "restecg": 1,
+      "thalach": 150,
+      "exang": 0,
+      "oldpeak": 2.3,
+      "slope": 2,
+      "ca": 0,
+      "thal": 2
+    }
+  }
+  ```
+
+- Optional Parameter: `lang` (can be `en` or `fr`, default is `en`)
+
+- Example body Response:
+
+  ```json
+  {
+    "prediction": 1,
+    "recommendations": {
+      "high_fbs": "Assess for potential diabetes management.",
+      "high_risk": "Discuss comprehensive cardiovascular risk reduction."
+    }
+  }
+  ```
+
+  <!-- [Provide more specific examples or documentation links for API usage.] -->
 
 ## Contributing
 
@@ -163,6 +202,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-For more information or inquiries, please contact asn.diallo@outlook.com.
+For more information or inquiries, please contact <asn.diallo@outlook.com>.
 
 <!-- [Feel free to add any other sections or details you deem necessary.] -->
