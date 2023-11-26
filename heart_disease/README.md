@@ -8,7 +8,7 @@ The Heart Disease Predictor API is a Django-based RESTful service designed to pr
 
 ### Prerequisites
 
-- Python 3.x
+- Python 3.10
 - Django
 - Django REST Framework
 - Other dependencies listed in project's `requirements.txt`
