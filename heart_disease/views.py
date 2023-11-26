@@ -120,8 +120,8 @@ class HeartDiseasePredictorView(views.APIView):
         """
         Formats the SHAP values to be compatible with the frontend.
         """
-
-        return [
-            {"name": FEATURES[i], "shap_value": shap_values[i]}
-            for i in range(len(FEATURES))
-        ]
+        formatted = []
+        for feature, value in zip(FEATURES, shap_values):
+            explanation = {"feature_name": feature, "shap_value": value}
+            formatted.append(explanation)
+        return formatted
