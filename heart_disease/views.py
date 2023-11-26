@@ -73,7 +73,12 @@ class HeartDiseasePredictorView(views.APIView):
         """
         Generates recommendations based on the input data and the prediction result.
         """
-        rec_messages = self.load_recommendations(lang)
+        try:
+            rec_messages = self.load_recommendations(lang)
+        except FileNotFoundError:
+            logger.error(f"Recommendations file for language {lang} not found.")
+            rec_messages = self.load_recommendations("en")  # Fallback to English
+
         recommendations = {}
 
         # Blood Pressure
