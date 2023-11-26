@@ -2,21 +2,7 @@ import joblib
 import pandas as pd
 import shap
 
-FEATURES = [
-    "age",
-    "sex",
-    "cp",
-    "trestbps",
-    "chol",
-    "fbs",
-    "restecg",
-    "thalach",
-    "exang",
-    "oldpeak",
-    "slope",
-    "ca",
-    "thal",
-]
+from .constants import FEATURES
 
 
 class HeartDiseasePredictor:

@@ -3,6 +3,7 @@ import os
 
 from rest_framework import response, status, views
 
+from .constants import FEATURES
 from .predictor import HeartDiseasePredictor
 from .serializers import UserInputSerializer
 
@@ -94,23 +95,8 @@ class HeartDiseasePredictorView(views.APIView):
         """
         Formats the SHAP values to be compatible with the frontend.
         """
-        feature_names = [
-            "age",
-            "sex",
-            "cp",
-            "trestbps",
-            "chol",
-            "fbs",
-            "restecg",
-            "thalach",
-            "exang",
-            "oldpeak",
-            "slope",
-            "ca",
-            "thal",
-        ]
 
         return [
-            {"name": feature_names[i], "shap_value": shap_values[i]}
-            for i in range(len(feature_names))
+            {"name": FEATURES[i], "shap_value": shap_values[i]}
+            for i in range(len(FEATURES))
         ]
