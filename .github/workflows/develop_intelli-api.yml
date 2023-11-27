@@ -17,6 +17,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up Git LFS
+        run: |
+          git lfs install
+          git lfs fetch --all
+          git lfs checkout
+
       - name: Set up Python version
         uses: actions/setup-python@v1
         with:
@@ -57,12 +63,6 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-
-      - name: Set up Git LFS
-        run: |
-          git lfs install
-          git lfs fetch --all
-          git lfs checkout
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
