@@ -104,7 +104,7 @@ To utilize the Heart Disease Predictor API, send a POST request to the `/api/v1/
 Below is an example of how to make this request using `curl`:
 
 ```bash
-curl -X POST http://localhost:8000/api/v1/heart_disease/predict/ \
+curl -X POST https://intelli-api.azurewebsites.net/api/v1/heart_disease/predict/ \
      -H 'Content-Type: application/json' \
      -d '{
             "data": {
