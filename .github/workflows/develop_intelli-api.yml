@@ -58,6 +58,12 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
+      - name: Set up Git LFS
+        run: |
+          git lfs install
+          git lfs fetch --all
+          git lfs checkout
+
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
